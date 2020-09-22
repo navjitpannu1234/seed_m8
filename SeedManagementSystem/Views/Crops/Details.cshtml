@@ -1,0 +1,23 @@
+﻿@model SeedManagementSystem.Models.Crop
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CropName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CropName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

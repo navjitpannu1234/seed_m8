@@ -1,0 +1,52 @@
+﻿@model SeedManagementSystem.Models.BankPayment
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmountReceived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AmountReceived)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

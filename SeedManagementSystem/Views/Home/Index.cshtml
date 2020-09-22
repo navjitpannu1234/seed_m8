@@ -1,0 +1,164 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<table id="tab1" width="300px" border="1">
+    <tr>
+        <th>Name</th>
+    </tr>
+
+</table>
+Name : <input type="text" name="CropName" id="CropName" value="" /><br />
+
+<input type="button" name="btn" id="btn1" value="Add Crop " />
+<input type="button" name="btn2" id="btn2" value="Delete Crop " />
+
+<input type="button" name="btn3" id="btn3" value="Update Crop " />
+
+<script>
+    $(document).ready(function () {
+
+        $("#tab1").css("display", "none");
+        $.getJSON("api/Crops/", function (data) {
+            $("#tab1").css("display", "block");
+            $.each(data, function (key, val) {
+                $("<tr><td>" + val.CropName + "</td></tr>").appendTo($("#tab1"));
+
+
+            })
+        })
+        //POST
+        $("#btn1").click(function () {
+            var CropName = $("#CropName").val();
+            $.ajax({
+
+                type: "POST",
+
+                contentType: "application/json;charset=utf-8",
+
+                url: "/api/Crops/",
+
+                data: JSON.stringify({
+                    CropName: $("#CropName").val(),
+                }),
+
+                dataType: "JSON",
+
+                success: function (data) {
+                    $("#tab1").find("tr:gt(0)").remove();
+                    $.getJSON("/api/Crops/", function (data) {
+                        $("#tab1").css("display", "block");
+                        $.each(data, function (key, val) {
+                            $("<tr><td>" + val.CropName + "</td></tr>").appendTo($("#tab1"));
+
+
+                        })
+
+                    })
+
+
+
+                }
+            });
+
+
+        })
+        //Delete
+        $("#btn2").click(function () {
+            var id = $("#id").val();
+
+            $.ajax({
+
+                type: "DELETE",
+
+                contentType: "application/json;charset=utf-8",
+
+                url: "/api/CropName/" + $("#id").val(),
+
+                data: JSON.stringify({
+
+
+
+                    name: $("#id").val(),
+
+
+
+
+
+                }),
+
+                dataType: "JSON",
+
+                success: function (data) {
+                    $("#tab1").find("tr:gt(0)").remove();
+                    $.getJSON("/api/infoes/", function (data) {
+                        $("#tab1").css("display", "block");
+                        $.each(data, function (key, val) {
+                            $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.fname + "</td></tr>").appendTo($("#tab1"));
+
+
+                        })
+
+                    })
+
+
+
+                }
+            });
+
+
+        })
+
+        //Update
+        $("#btn3").click(function () {
+            var id = $("#id").val();
+            var name = $("#name").val();
+            var fname = $("#fname").val();
+            $.ajax({
+
+                type: "put",
+
+                contentType: "application/json;charset=utf-8",
+
+                url: "/api/infoes/" + $("#id").val(),
+
+                data: JSON.stringify({
+
+
+                    id: $("#id").val(),
+                    name: $("#name").val(),
+
+
+                    fname: $("#fname").val(),
+
+
+
+                }),
+
+                dataType: "JSON",
+
+                success: function (data) {
+                    $("#tab1").find("tr:gt(0)").remove();
+                    $.getJSON("/api/infoes/", function (data) {
+                        $("#tab1").css("display", "block");
+                        $.each(data, function (key, val) {
+                            $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.fname + "</td></tr>").appendTo($("#tab1"));
+
+
+                        })
+
+                    })
+
+
+
+                }
+            });
+
+
+        })
+    });
+
+</script>
